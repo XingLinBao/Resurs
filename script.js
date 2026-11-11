@@ -356,6 +356,7 @@
     $$('.hero h1').forEach(splitWords);
     $$('.hero').forEach(hero => {
       decorate(hero);
+      initPhoto(hero);
       initMotion(hero);
     });
     initBlocks();
