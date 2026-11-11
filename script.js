@@ -278,9 +278,9 @@
     const media = $('.hero__media', hero);
     const photo = $('.hero__photo', hero);
     const urls = PHOTOS[pageKey];
-    if (!media || !photo || !urls) return;
-    const found = await loadFirst(urls);
-    if (!found) return;
+    if (!media || !photo) return;
+    const found = urls ? await loadFirst(urls) : null;
+    if (!found) { media.classList.add('no-photo'); return; }
     photo.style.backgroundImage = `url("${found}")`;
     requestAnimationFrame(() => {
       photo.classList.add('is-loaded');
@@ -356,7 +356,6 @@
     $$('.hero h1').forEach(splitWords);
     $$('.hero').forEach(hero => {
       decorate(hero);
-      initPhoto(hero);
       initMotion(hero);
     });
     initBlocks();
