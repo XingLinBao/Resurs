@@ -37,7 +37,7 @@ body[data-page="contacts"]      { --blob-1: #E6EDE4; --blob-2: #A8BDB0; --blob-3
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; scrollbar-gutter: stable; }
 
 body {
   margin: 0;
