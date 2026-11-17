@@ -347,6 +347,80 @@
     addEventListener('pageshow', () => document.body.classList.remove('leaving'));
   }
 
+
+  /* ---------- Сторінка «Про модель»: іконки, поява, саморефлексія ---------- */
+  function initAbout() {
+    if (pageKey !== 'basic') return;
+
+    $$('.wood[data-icon]').forEach(w => w.insertAdjacentHTML('afterbegin', svg(w.dataset.icon)));
+
+    const apps = $$('.appear');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => es.forEach(en => {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      }), { threshold: .12 });
+      apps.forEach(el => io.observe(el));
+    } else apps.forEach(el => el.classList.add('in'));
+
+    const KEYS = ['B', 'A', 'S', 'I', 'C', 'Ph'];
+    const NAMES = {
+      B: ['Belief', 'Віра та сенси', 'Згадайте, що для вас справді важливо, і запитайте себе: «Заради чого я це проходжу?»'],
+      A: ['Affect', 'Емоції та почуття', 'Назвіть свою емоцію вголос або запишіть кілька речень про те, що ви зараз відчуваєте.'],
+      S: ['Social', 'Соціум і підтримка', 'Напишіть людині, якій довіряєте, або проведіть хвилину у спілкуванні з близьким.'],
+      I: ['Imagination', 'Уява та творчість', 'Перемкніться на музику, малювання, гумор або мрії про майбутнє.'],
+      C: ['Cognition', 'Розум і логіка', 'Випишіть 3 найближчі кроки, на які ви реально впливаєте, і розставте пріоритети.'],
+      Ph: ['Physiology', 'Тіло та рух', 'Зробіть кілька повільних вдихів і видихів, пройдіться або розімніть плечі.']
+    };
+    // Початкові значення — приклад із макета; «Скинути оцінки» очищає їх
+    const EXAMPLE = { B: 5, A: 3, S: 2, I: 1, C: 4, Ph: 2 };
+    const val = { ...EXAMPLE };
+
+    const rows = $$('.rate');
+    const bars = $$('.bar');
+    const score = $('#score');
+    const advice = $('#advice');
+
+    function render() {
+      rows.forEach(r => {
+        const v = val[r.dataset.key];
+        $$('.rate__btn', r).forEach(b => {
+          const on = +b.dataset.v <= v;
+          b.classList.toggle('on', on);
+          b.setAttribute('aria-pressed', +b.dataset.v === v);
+        });
+      });
+
+      const total = KEYS.reduce((s, k) => s + val[k], 0);
+      score.textContent = `${total} / 30`;
+
+      const rated = KEYS.filter(k => val[k] > 0);
+      const order = [...KEYS].sort((a, b) => val[b] - val[a] || KEYS.indexOf(a) - KEYS.indexOf(b));
+      const top = rated.length ? order.slice(0, 2).filter(k => val[k] > 0) : [];
+      bars.forEach(b => {
+        const k = b.dataset.key;
+        $('i', b).style.height = Math.max(4, val[k] / 5 * 100) + '%';
+        b.classList.toggle('top', top.includes(k));
+      });
+
+      if (!rated.length) {
+        advice.innerHTML = '<span>Оцініть кожен канал — і тут з’явиться ваш баланс та підказка, який ключ варто розбудити.</span>';
+        return;
+      }
+      const low = order.filter(k => !top.includes(k)).pop();
+      const mx = Math.max(...KEYS.map(k => val[k])), mn = Math.min(...KEYS.map(k => val[k]));
+      if (mx === mn) {
+        advice.innerHTML = 'Усі канали зараз підтримують вас майже однаково. Оберіть той, що найближчий вам сьогодні, і спробуйте його міні-практику.';
+        return;
+      }
+      advice.innerHTML = `Ваші провідні опори зараз: <strong>${top.join(', ')}</strong>. Сьогодні варто м’яко розбудити канал <strong>${NAMES[low][0]} (${NAMES[low][1]})</strong>: ${NAMES[low][2]}`;
+    }
+
+    rows.forEach(r => $$('.rate__btn', r).forEach(b =>
+      b.addEventListener('click', () => { val[r.dataset.key] = +b.dataset.v; render(); })));
+    $('#self-reset').addEventListener('click', () => { KEYS.forEach(k => (val[k] = 0)); render(); });
+    render();
+  }
+
   /* ---------- Старт ---------- */
   function init() {
     buildHeader();
@@ -360,6 +434,7 @@
       initMotion(hero);
     });
     initBlocks();
+    initAbout();
 
     // Поява елементів
     const items = $$('.reveal');
