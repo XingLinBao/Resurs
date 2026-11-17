@@ -782,7 +782,7 @@ body.leaving main { opacity: 0; transform: translateY(-8px); }
   .blocks {
     --b: clamp(84px, 11vw, 118px);
     right: auto;
-    left: calc(max(0px, (100vw - 1240px) / 2) + 32px + min(40vw, 470px) + 110px);
+    left: min(calc(max(0px, (100vw - 1240px) / 2) + 32px + min(40vw, 470px) + 210px), max(calc(100vw - 3 * var(--b) - 214px), 45vw));
   }
 }
 
