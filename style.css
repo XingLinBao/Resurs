@@ -78,7 +78,6 @@ body.leaving main { opacity: 0; transform: translateY(-8px); }
   -webkit-backdrop-filter: saturate(1.2) blur(14px);
   backdrop-filter: saturate(1.2) blur(14px);
   border-bottom: 1px solid rgba(49, 91, 91, .07);
-  animation: slideDown .8s var(--ease) both;
   transition: box-shadow .3s ease, background .3s ease;
 }
 .topbar.is-scrolled { box-shadow: 0 8px 28px rgba(49, 91, 91, .12); background: rgba(250, 247, 240, .94); }
