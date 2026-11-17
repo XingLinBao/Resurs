@@ -777,12 +777,12 @@ body.leaving main { opacity: 0; transform: translateY(-8px); }
 .advice { margin-top: 14px; padding: 16px 18px; border-radius: 16px; background: #fbfaf4; font-size: 14px; line-height: 1.6; color: var(--ink); min-height: 64px; }
 .advice span { color: var(--ink-soft); }
 
-/* Кубики ближче до тексту */
+/* Кубики — біля рослини: відступ рахується від правого краю, а не від тексту */
 @media (min-width: 820px) {
   .blocks {
     --b: clamp(84px, 11vw, 118px);
-    right: auto;
-    left: min(calc(max(0px, (100vw - 1240px) / 2) + 32px + min(40vw, 470px) + 210px), max(calc(100vw - 3 * var(--b) - 214px), 45vw));
+    left: auto;
+    right: min(calc(min(196px, 15.7vw) + 16px), calc(100vw - 3 * var(--b) - 14px - 48vw));
   }
 }
 
