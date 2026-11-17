@@ -91,8 +91,8 @@
           </div>
           <aside class="intro__aside">
             <img class="intro__photo" src="images/muli-lahad.jpg" alt="Професор Мулі Лаад, автор моделі BASIC Ph" width="1164" height="870" loading="lazy">
-            <h2>Компас внутрішніх ресурсів</h2>
-            <p>6 природних каналів, які допомагають відновити рівновагу у моменти невизначеності.</p>
+            <h2>Лаад Мулі</h2>
+            <p class="intro__role">Ізраїльський психолог, професор. Автор моделі життєстійкості BASIC Ph.</p>
             <div class="letters" aria-hidden="true"><span>B</span><span>A</span><span>S</span><span>I</span><span>C</span><span>Ph</span></div>
           </aside>
         </div>
@@ -223,6 +223,40 @@
               </div>
               <div class="advice" id="advice" aria-live="polite"></div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Тест 1: банер -->
+      <section class="about__sec appear" aria-labelledby="stress-title">
+        <div class="test-banner">
+          <div class="test-banner__text">
+            <span class="eyebrow">Психологічний тест</span>
+            <h2 id="stress-title">Тест BASIC Ph. Модель стресодолання</h2>
+            <p>У кожної людини є 6 каналів подолання стресу, при цьому з них домінуючими є лише кілька. З огляду на це, важливо розуміти свої сильні сторони і розвивати слабкі (пасивні) канали, тим самим посилюючи і збагачуючи свої ресурси. Який канал у вас розвинутий краще за інші, а які варто ще розвивати, можна дізнатися, пройшовши тест.</p>
+            <ul class="test-banner__meta"><li>36 тверджень</li><li>7 варіантів відповіді</li><li>≈ 5–10 хвилин</li></ul>
+            <button type="button" class="btn" id="stress-open" aria-haspopup="dialog">Пройти тест <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          </div>
+          <div class="test-banner__art" aria-hidden="true">
+            <span class="wood" data-icon="lotus"></span><span class="wood" data-icon="heart"></span><span class="wood" data-icon="people"></span>
+            <span class="wood" data-icon="star"></span><span class="wood" data-icon="brain"></span><span class="wood" data-icon="dumbbell"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Тест 2: Життя в балансі -->
+      <section class="about__sec appear" aria-labelledby="wheel-title">
+        <header class="sec-head">
+          <span class="eyebrow">Інтерактивний тест</span>
+          <h2 id="wheel-title">Життя в балансі</h2>
+          <p>Оберіть свій рівень задоволеності на шкалі від 0 до 10. Пересуваючи повзунок, ви заповнюєте відповідний сектор кола.</p>
+        </header>
+        <div class="wheel card">
+          <div class="wheel__list" id="wheel-list"></div>
+          <div class="wheel__side">
+            <div class="wheel__svg" id="wheel-svg"></div>
+            <div class="wheel__sum" id="wheel-sum" aria-live="polite"></div>
+            <button type="button" class="reset" id="wheel-reset">Скинути оцінки</button>
           </div>
         </div>
       </section>

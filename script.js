@@ -421,7 +421,285 @@
     render();
   }
 
+  /* ---------- Тести: стресодолання (модальне вікно) і «Життя в балансі» ---------- */
+  const STRESS = {
+    title: 'Тест BASIC Ph. Модель стресодолання',
+    stem: 'Коли я перебуваю у кризі чи переживаю сильний стрес…',
+    opts: ['Ніколи', 'Рідко', 'Іноді', 'Періодично', 'Часто', 'Майже завжди', 'Завжди'],
+    source: 'Джерело: Основи реабілітаційної психології: подолання наслідків кризи. Навчальний посібник. Том 2.',
+    // Питання йдуть по колу B, A, S, I, C, Ph (по 6 тверджень на канал)
+    q: [
+      'Я здаюся і покладаюсь на вищі сили чи частку у вирішенні проблеми.',
+      'Я не говорю про свої емоції прямо, але виражаю їх опосередковано; наприклад, плачу, коли думаю про себе.',
+      'Я шукаю підтримки інших людей.',
+      'Я фантазую і даю волю своїй уяві, наприклад, уявляю себе у спокійному, безтурботному місці.',
+      'Я збираю інформацію, щоб бути певним (-ною) у тому, що обираю найкращий варіант вирішення проблеми.',
+      'Я їм або сплю менше, ніж звичайно, або ж, навпаки, я їм та сплю більше, аніж зазвичай.',
+      'Я вірю у свої власні сили і свою здатність долати перешкоди.',
+      'Я висловлюю почуття у власний завуальований спосіб — через натяки, сарказм або навіть флірт.',
+      'Я розмовляю з друзями по телефону.',
+      'Я згадую свої улюблені історії, байки, притчі або ж казки як спосіб пошуку вирішення проблеми.',
+      'Я аналізую проблеми, намагаючись знайти їх вирішення.',
+      'Я постійно займаюся фізичним трудом, наприклад, прибиранням, приготуванням їжі, роботою з деревом, ремонтом автомобіля чи навіть створенням моделі літака.',
+      'Моє кредо: «Я зможу пережити це, незважаючи ні на що».',
+      'Я звільняюсь від почуттів через плач, сміх або крик і не тримаю все це всередині.',
+      'Я намагаюся знайти підтримку в друга або членів моєї сім’ї.',
+      'Слухаючи музику, я даю волю своїй уяві.',
+      'Я створюю спеціальний план і дію згідно з ним крок за кроком.',
+      'Я використовую вправи для розслаблення.',
+      'Я прошу допомоги у Бога в молитві.',
+      'Я накручую себе емоційно, щоб посилити свою мотивацію.',
+      'Я глибоко занурююсь у стосунки з членами моєї громади або організації, до якої я належу.',
+      'Я згадую час, коли мені було набагато краще, ніж зараз, або ж думаю про час, коли все зміниться на краще.',
+      'Насамперед я намагаюся зрозуміти, що, власне, відбувається.',
+      'Я розслабляюся, коли роблю щось: приймаю душ або ванну, йду на прогулянку або бігаю підтюпцем.',
+      'Я опираюся на свої духовні переконання або на свою життєву філософію.',
+      'Я розповідаю або слухаю жарти і смішні історії.',
+      'Я шукаю людей, з якими можна провести час, нічим особливо не займаючись.',
+      'Я переглядаю спортивні змагання, фільми або читаю книги, уявляючи себе на місці дійових осіб.',
+      'Я зважую всі можливі варіанти вирішення проблеми і, якщо це можливо, обираю найкращий з них.',
+      'Я намагаюся постійно займатись якоюсь фізичною діяльністю.',
+      'Моє кредо: «Те, що не вбиває мене, робить мене сильнішим».',
+      'Я даю вихід своїм емоціям.',
+      'Я пишу листи та е-мейли до друзів, сподіваючись, що вони дадуть відповідь.',
+      'Я мрію, думаю про кращі часи, уявляючи собі їх.',
+      'Я намагаюся знайти вирішення проблеми у найкращий спосіб з тих, які знаю, обмірковуючи кожен з них.',
+      'Я виходжу з дому або намагаюся бути активним (-ною) для того, щоб позбутися надлишку енергії.'
+    ],
+    // Порядок результатів — як у джерелі: B, A, I, Ph, C, S
+    ch: [
+      { k: 'B', name: 'віра, переконання, цінності', idx: 0, desc: 'Віра (belief) в контексті філософії життя, вірувань та моральних цінностей. Віра у Бога, ЗСУ, віра в людей чи в самого себе. Важливий сам факт наявності віри.' },
+      { k: 'A', name: 'емоції, почуття', idx: 1, desc: 'Афекти (affect) в контексті вираження почуттів та емоцій. Якщо вам допомагає нити, скаржитися, бурхливо реагувати, кричати, махати руками, тупотіти ногами — робіть це.' },
+      { k: 'I', name: 'уява, мрії, спогади', idx: 3, desc: 'Уява (imagination) в контексті творчості, гри, уяви, інтуїції. Тут все просто, сублімуйте, як умієте. Грайте, малюйте, пишіть вірші, співайте, шийте ляльок, в’яжіть шарфики.' },
+      { k: 'Ph', name: 'тілесні ресурси, діяльність', idx: 5, desc: 'Тіло (physiology) в контексті фізіологічних ресурсів, чуттєвої модальності та фізичної діяльності. Спорт, танці, готування, їжа, будь-які кінестетичні задоволення (ванна, плед, масаж, потискати котика).' },
+      { k: 'C', name: 'когнітивні стратегії', idx: 4, desc: 'Когнітивні стратегії (cognition) в контексті знання, логіки, реальності, пізнання та думок. Це для тих, кому, щоб заспокоїтись, потрібно в усьому розібратися, проаналізувати інформацію, спрогнозувати варіанти розвитку.' },
+      { k: 'S', name: 'соціальні зв’язки, соціальна підтримка', idx: 2, desc: 'Соціальна підтримка (social) в контексті функціональності, приналежності, родинних зв’язків, друзів. Якщо вам, щоб упоратися з переживаннями, потрібно говорити з іншими, спілкуватися, взаємодіяти, допомагати, брати в чомусь участь — не відмовляйте собі в цьому.' }
+    ],
+    notes: [
+      'Важливо пам’ятати, що немає правильного чи неправильного з вищеописаних каналів, кожен має свої переваги та недоліки.',
+      'При цьому, щоб поновити та збільшити сили та ресурси в ситуаціях, коли людина «вибита з колії» та втратила ґрунт під ногами, варто осмислити вже ті частини наших ресурсів, що є в наявності та зосередитися на ефективному їх використанні.',
+      'Якщо ж людина відчуває себе у «глухому куті», варто звернутися до тих частин, які поки що не проявлені чи дуже слабкі.',
+      'Якщо у вас виникли труднощі з виявленням каналів, чи немає ідей, як і що робити практично, звертайтесь до психолога, який допоможе розробити ваш індивідуальний стиль долання стресу чи кризи.'
+    ],
+    sign: 'Будь ласка, бережіть себе, мої любі українки і українці! — Психолог Рада Целковська'
+  };
+
+  function initStressTest() {
+    const openBtn = $('#stress-open');
+    if (!openBtn) return;
+    const N = STRESS.q.length, MAXC = 6 * 6;
+    let cur = 0, answers = Array(N).fill(null), lastFocus = null;
+
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.setAttribute('aria-hidden', 'true');
+    modal.innerHTML = `
+      <div class="modal__overlay" data-close></div>
+      <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="stress-modal-title">
+        <div class="modal__head">
+          <h2 class="modal__title" id="stress-modal-title">${STRESS.title}</h2>
+          <button class="icon-btn" type="button" data-close aria-label="Закрити тест"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+        </div>
+        <div class="modal__body" id="stress-body"></div>
+        <div class="modal__foot" id="stress-foot"></div>
+        <div class="modal__src">${STRESS.source}</div>
+      </div>`;
+    document.body.append(modal);
+    const body = $('#stress-body', modal), foot = $('#stress-foot', modal), panel = $('.modal__panel', modal);
+
+    function renderQuestion() {
+      const opts = STRESS.opts.map((o, i) => `
+        <label class="opt${answers[cur] === i ? ' is-on' : ''}"><input type="radio" name="q${cur}" value="${i}"${answers[cur] === i ? ' checked' : ''}><span class="opt__dot"></span><span>${o}</span></label>`).join('');
+      body.innerHTML = `
+        <div class="progress"><span>${cur + 1} з ${N}</span><div class="progress__bar"><i style="width:${(cur / N) * 100}%"></i></div></div>
+        <fieldset class="q">
+          <legend><span class="q__stem">${STRESS.stem}</span>${STRESS.q[cur]}</legend>
+          <div class="opts">${opts}</div>
+        </fieldset>`;
+      requestAnimationFrame(() => { const bar = $('.progress__bar i', body); if (bar) bar.style.width = ((cur + 1) / N) * 100 + '%'; });
+      const last = cur === N - 1;
+      foot.innerHTML = `
+        <button type="button" class="btn-plain" id="st-prev"${cur === 0 ? ' disabled' : ''}>Назад</button>
+        <button type="button" class="btn" id="st-next"${answers[cur] === null ? ' disabled' : ''}>${last ? 'Завершити' : 'Далі'}</button>`;
+      const next = $('#st-next', foot);
+      $$('.opt', body).forEach(l => {
+        const inp = $('input', l);
+        inp.addEventListener('change', () => {
+          answers[cur] = +inp.value;
+          $$('.opt', body).forEach(x => x.classList.toggle('is-on', $('input', x).checked));
+          next.disabled = false;
+        });
+        inp.addEventListener('focus', () => l.classList.add('is-focus'));
+        inp.addEventListener('blur', () => l.classList.remove('is-focus'));
+      });
+      $('#st-prev', foot).addEventListener('click', () => { cur--; renderQuestion(); });
+      next.addEventListener('click', () => { if (last) renderResult(); else { cur++; renderQuestion(); } });
+      body.scrollTop = 0;
+      const first = $('input:checked', body) || $('input', body);
+      if (first) first.focus({ preventScroll: true });
+    }
+
+    function renderResult() {
+      const scores = STRESS.ch.map(c => {
+        let s = 0;
+        for (let i = c.idx; i < N; i += 6) s += answers[i] || 0;
+        return s;
+      });
+      const mx = Math.max(...scores), mn = Math.min(...scores);
+      const rows = STRESS.ch.map((c, i) => {
+        const top = scores[i] === mx && mx !== mn, low = scores[i] === mn && mx !== mn;
+        return `
+        <details class="res__row${top ? ' is-top' : ''}"${top || low ? ' open' : ''}>
+          <summary>
+            <span class="rate__tag">${c.k}</span>
+            <span class="res__name">${c.k} — ${c.name}${top ? '<span class="res__badge">провідний</span>' : ''}${low ? '<span class="res__badge res__badge--low">можна розвивати</span>' : ''}</span>
+            <span class="res__score">${scores[i]} / ${MAXC}</span>
+            <span class="res__bar"><i data-w="${(scores[i] / MAXC) * 100}"></i></span>
+          </summary>
+          <p class="res__desc">${c.desc}</p>
+        </details>`;
+      }).join('');
+      body.innerHTML = `
+        <h3 class="res__title">Результат</h3>
+        <p class="res__lead">Бали за кожним каналом — від 0 до ${MAXC}. Чим вищий бал, тим частіше ви звертаєтесь до цього способу подолання стресу. Тут немає «правильних» чи «неправильних» результатів.</p>
+        <div class="res__list">${rows}</div>
+        <div class="res__notes">${STRESS.notes.map(n => `<p>${n}</p>`).join('')}<p class="res__sign">${STRESS.sign}</p></div>`;
+      foot.innerHTML = `
+        <button type="button" class="btn-plain" id="st-again">Пройти ще раз</button>
+        <button type="button" class="btn" id="st-close">Закрити</button>`;
+      requestAnimationFrame(() => requestAnimationFrame(() => $$('.res__bar i', body).forEach(i => (i.style.width = i.dataset.w + '%'))));
+      $('#st-again', foot).addEventListener('click', () => { answers = Array(N).fill(null); cur = 0; renderQuestion(); });
+      $('#st-close', foot).addEventListener('click', close);
+      body.scrollTop = 0;
+      $('#st-close', foot).focus({ preventScroll: true });
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      answers = Array(N).fill(null); cur = 0;
+      renderQuestion();
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('modal-open');
+    }
+    function close() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    }
+    openBtn.addEventListener('click', open);
+    $$('[data-close]', modal).forEach(el => el.addEventListener('click', close));
+    addEventListener('keydown', e => {
+      if (!modal.classList.contains('open')) return;
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key === 'Tab') {
+        const f = $$('button:not(:disabled), input, summary, [href]', panel).filter(x => x.offsetParent !== null || x.type === 'radio');
+        if (!f.length) return;
+        const a = f[0], z = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === a) { e.preventDefault(); z.focus(); }
+        else if (!e.shiftKey && document.activeElement === z) { e.preventDefault(); a.focus(); }
+      }
+    });
+  }
+
+  /* ---------- Життя в балансі ---------- */
+  const SPHERES = [
+    { name: 'Особистісний розвиток', short: ['Особистісний', 'розвиток'], c: '#6f8f8c', d: 'Навчання, нові навички, книжки, зростання. Наскільки ви розвиваєтесь зараз?' },
+    { name: 'Робота, бізнес', short: ['Робота,', 'бізнес'], c: '#c98765', d: 'Задоволеність справою, колективом, досягненнями та темпом навантаження.' },
+    { name: 'Здоров’я, фізична активність', short: ['Здоров’я,', 'активність'], c: '#8fa59a', d: 'Самопочуття, сон, харчування, рух і турбота про своє тіло.' },
+    { name: 'Сім’я, відносини', short: ['Сім’я,', 'відносини'], c: '#d3a58a', d: 'Близькість, підтримка і тепло у стосунках з рідними та партнером.' },
+    { name: 'Фінанси', short: ['Фінанси'], c: '#b7a58f', d: 'Відчуття стабільності та спокою щодо грошей і планів на майбутнє.' },
+    { name: 'Відпочинок, дозвілля', short: ['Відпочинок,', 'дозвілля'], c: '#7d9a9f', d: 'Чи вистачає часу на відновлення, хобі та приємні речі «для себе»?' },
+    { name: 'Друзі, оточення', short: ['Друзі,', 'оточення'], c: '#e0b895', d: 'Якість дружніх зв’язків і спільноти, яка вас оточує.' },
+    { name: 'Соціальні проекти', short: ['Соціальні', 'проекти'], c: '#9db0a6', d: 'Волонтерство, спільні ініціативи й справи, що виходять за межі власних потреб.' }
+  ];
+
+  function initWheel() {
+    const list = $('#wheel-list');
+    if (!list) return;
+    const NS = 'http://www.w3.org/2000/svg';
+    const n = SPHERES.length, vals = Array(n).fill(0);
+    const CX = 280, CY = 260, R = 165, GAP = 1.6, step = 360 / n;
+    const rad = a => (a * Math.PI) / 180;
+    const pt = (r, a) => [CX + r * Math.cos(rad(a)), CY + r * Math.sin(rad(a))];
+    const wedge = (r, i) => {
+      const a0 = -90 + i * step + GAP / 2, a1 = -90 + (i + 1) * step - GAP / 2;
+      if (r <= 0.5) return '';
+      const [x0, y0] = pt(r, a0), [x1, y1] = pt(r, a1);
+      return `M${CX} ${CY}L${x0.toFixed(2)} ${y0.toFixed(2)}A${r} ${r} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}Z`;
+    };
+
+    // Повзунки
+    list.innerHTML = SPHERES.map((s, i) => `
+      <div class="acc${i === 0 ? ' open' : ''}" data-i="${i}">
+        <button type="button" class="acc__head" aria-expanded="${i === 0}">
+          <span class="acc__dot" style="background:${s.c}"></span>
+          <span class="acc__label">${s.name} — <b data-v>0</b></span>
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3 6 5 5 5-5"/></svg>
+        </button>
+        <div class="acc__panel"><div class="acc__inner"><div class="acc__pad">
+          <input class="range" type="range" min="0" max="10" step="1" value="0" style="--c:${s.c}" aria-label="${s.name}: оцінка від 0 до 10">
+          <div class="range__scale"><span>0</span><span>5</span><span>10</span></div>
+          <p class="acc__desc">${s.d}</p>
+        </div></div></div>
+      </div>`).join('');
+
+    // Коло
+    const svgEl = document.createElementNS(NS, 'svg');
+    svgEl.setAttribute('viewBox', '0 0 560 520');
+    svgEl.setAttribute('role', 'img');
+    svgEl.setAttribute('aria-label', 'Колесо балансу життя');
+    let html = '';
+    for (let i = 0; i < n; i++) html += `<path d="${wedge(R, i)}" fill="#eceee9" stroke="#fff" stroke-width="0"/>`;
+    html += `<circle cx="${CX}" cy="${CY}" r="${R / 2}" fill="none" stroke="#cfd6d1" stroke-dasharray="3 4"/>`;
+    html += `<circle cx="${CX}" cy="${CY}" r="${R}" fill="none" stroke="#cfd6d1"/>`;
+    for (let i = 0; i < n; i++) { const [x, y] = pt(R, -90 + i * step); html += `<line x1="${CX}" y1="${CY}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#fff" stroke-width="2"/>`; }
+    SPHERES.forEach((s, i) => { html += `<path class="fill" data-i="${i}" d="" fill="${s.c}" fill-opacity=".92"/>`; });
+    html += `<text class="tick" x="${CX + 5}" y="${CY - R / 2 + 4}">5</text><text class="tick" x="${CX + 5}" y="${CY - R + 12}">10</text>`;
+    SPHERES.forEach((s, i) => {
+      const a = -90 + (i + .5) * step, [x, y] = pt(R + 24, a), c = Math.cos(rad(a));
+      const anchor = c > .3 ? 'start' : c < -.3 ? 'end' : 'middle';
+      const lines = s.short.map((t, k) => `<tspan x="${x.toFixed(1)}" dy="${k ? 15 : (s.short.length > 1 ? -7 : 4)}">${t}</tspan>`).join('');
+      html += `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" text-anchor="${anchor}">${lines}</text>`;
+    });
+    svgEl.innerHTML = html;
+    $('#wheel-svg').append(svgEl);
+
+    const fills = $$('.fill', svgEl), accs = $$('.acc', list), sum = $('#wheel-sum');
+    function paint(i) {
+      fills[i].setAttribute('d', wedge((vals[i] / 10) * R, i));
+      const acc = accs[i];
+      $('[data-v]', acc).textContent = vals[i];
+      const r = $('.range', acc);
+      r.value = vals[i];
+      r.style.setProperty('--p', vals[i] * 10 + '%');
+    }
+    function summary() {
+      const rated = vals.filter(v => v > 0).length;
+      if (!rated) { sum.textContent = 'Пересувайте повзунки — і коло поступово заповниться. Так буде видно, які сфери життя зараз підтримують вас, а на які варто звернути увагу.'; return; }
+      const total = vals.reduce((a, b) => a + b, 0), avg = (total / n).toFixed(1).replace('.', ',');
+      const mx = Math.max(...vals), mn = Math.min(...vals);
+      const hi = SPHERES.filter((_, i) => vals[i] === mx).map(s => s.name), lo = SPHERES.filter((_, i) => vals[i] === mn).map(s => s.name);
+      let t = `Середня задоволеність: <strong>${avg} з 10</strong> (оцінено сфер: ${rated} з ${n}).`;
+      if (mx !== mn) t += `<br>Найсильніше зараз: <strong>${hi.join('; ')}</strong> (${mx}).<br>Найбільше уваги потребує: <strong>${lo.join('; ')}</strong> (${mn}).`;
+      sum.innerHTML = t;
+    }
+    accs.forEach((acc, i) => {
+      $('.acc__head', acc).addEventListener('click', () => {
+        const willOpen = !acc.classList.contains('open');
+        accs.forEach(a => { a.classList.remove('open'); $('.acc__head', a).setAttribute('aria-expanded', 'false'); });
+        if (willOpen) { acc.classList.add('open'); $('.acc__head', acc).setAttribute('aria-expanded', 'true'); }
+      });
+      $('.range', acc).addEventListener('input', e => { vals[i] = +e.target.value; paint(i); summary(); });
+    });
+    $('#wheel-reset').addEventListener('click', () => { vals.fill(0); vals.forEach((_, i) => paint(i)); summary(); });
+    vals.forEach((_, i) => paint(i));
+    summary();
+  }
+
   /* ---------- Старт ---------- */
+
   function init() {
     buildHeader();
     initTransitions();
@@ -435,6 +713,7 @@
     });
     initBlocks();
     initAbout();
+    if (pageKey === 'basic') { initStressTest(); initWheel(); }
 
     // Поява елементів
     const items = $$('.reveal');
