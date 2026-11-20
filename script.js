@@ -736,6 +736,43 @@
     document.body.append(f);
   }
 
+  /* ---------- Ключові слова в заголовках (оранжевим) ---------- */
+  // Порядок важливий: у заголовку виділяється перший збіг зі списку
+  const HL_WORDS = ['стресодолання', 'поруч', '6 ключів', 'балансі', 'людину', 'саме зараз', 'рівноваги', 'кейс', 'на практиці', 'BASIC Ph'];
+  function highlightHeadings() {
+    $$('main h1, main h2').forEach(h => {
+      const text = h.textContent.replace(/\s+/g, ' ');
+      const key = HL_WORDS.find(k => text.includes(k));
+      if (!key) return;
+      const words = $$('.w', h);
+      if (words.length) {
+        // заголовок розбитий на слова (анімація) — позначаємо потрібні слова
+        const target = key.split(' ');
+        const clean = w => w.textContent.replace(/[^\p{L}\p{N}]/gu, '');
+        for (let i = 0; i <= words.length - target.length; i++) {
+          if (target.every((t, j) => clean(words[i + j]) === t.replace(/[^\p{L}\p{N}]/gu, ''))) {
+            target.forEach((_, j) => words[i + j].classList.add('hl'));
+            break;
+          }
+        }
+        return;
+      }
+      const walker = document.createTreeWalker(h, NodeFilter.SHOW_TEXT);
+      let n;
+      while ((n = walker.nextNode())) {
+        const idx = n.textContent.indexOf(key);
+        if (idx < 0) continue;
+        const r = document.createRange();
+        r.setStart(n, idx);
+        r.setEnd(n, idx + key.length);
+        const span = document.createElement('span');
+        span.className = 'hl';
+        r.surroundContents(span);
+        break;
+      }
+    });
+  }
+
   function init() {
     buildHeader();
     buildFooter();
@@ -743,6 +780,7 @@
     initRipple();
 
     $$('.hero h1').forEach(splitWords);
+    highlightHeadings();
     $$('.hero').forEach(hero => {
       decorate(hero);
       initPhoto(hero);
