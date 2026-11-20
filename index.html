@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <noscript><style>.reveal,.appear{opacity:1!important;transform:none!important}</style></noscript>
   <script src="script.js" defer></script>
 </head>
 <body data-page="home">
@@ -74,6 +74,78 @@
 
       <div class="hero__wave" aria-hidden="true"></div>
     </section>
+
+    <div class="home">
+
+      <!-- Вступ -->
+      <section class="home__sec home-intro appear" aria-labelledby="intro-title">
+        <figure class="home-art home-art--intro">
+          <img src="images/edu-care.svg" alt="Ілюстрація: паросток у колі, випускний капелюх і книга — освіта, що дбає про людину" width="520" height="420" loading="lazy">
+        </figure>
+        <div class="home-text">
+          <h2 id="intro-title">Заклад освіти — це не лише про знання, а й передусім про людину.</h2>
+          <p>У стінах ВСП «Технолого-економічний фаховий коледж Білоцерківського НАУ» ми переконані: ментальне здоров’я є фундаментом успішного навчання, професійної реалізації та гармонійного життя. Воно безпосередньо впливає на нашу здатність концентруватися, засвоювати нову інформацію, долати труднощі та будувати екологічні стосунки в колективі.</p>
+          <p>Цей вебресурс створено як практичний навігатор, де кожен учасник освітнього процесу знайде дієві інструменти для відновлення внутрішньої рівноваги та життєстійкості.</p>
+        </div>
+      </section>
+
+      <!-- Актуальність -->
+      <section class="home__sec home-urgency" aria-labelledby="urgency-title">
+        <div class="home-row appear">
+          <div class="home-text">
+            <h2 id="urgency-title" class="h2--warm">Чому це важливо саме зараз? (Актуальність)</h2>
+            <p>Сучасні виклики вимагають від освітян і молоді постійної адаптації, високої емоційної стійкості та вміння швидко відновлюватися в умовах хронічного стресу та невизначеності. Професійне вигорання педагогів і навчальне перевантаження студентів знижують продуктивність та виснажують особистісні резерви.</p>
+          </div>
+          <figure class="home-art">
+            <img src="images/urgency-group.svg" alt="Ілюстрація: четверо студентів і викладачів разом обговорюють матеріали" width="560" height="360" loading="lazy">
+          </figure>
+        </div>
+        <div class="home-row home-row--flip appear">
+          <div class="home-text">
+            <p>Щоб не опинитися у «глухому куті» та вчасно поповнювати власні сили, недостатньо лише знати про існування стресу — необхідно мати під рукою перевірений набір практичних дій. Поєднання класичної психології та сучасних діджитал-інструментів дозволяє зробити турботу про себе доступною, швидкою та інтегрованою у щоденну рутину кожного.</p>
+          </div>
+          <figure class="home-art home-art--small">
+            <img src="images/support-pair.svg" alt="Ілюстрація: викладачка і студент поруч із кімнатною рослиною" width="420" height="330" loading="lazy">
+          </figure>
+        </div>
+      </section>
+
+      <!-- Як працює кейс -->
+      <section class="home__sec home-how appear" aria-labelledby="how-title">
+        <header class="home-how__head">
+          <h2 id="how-title">Як працює цей кейс?</h2>
+          <p>В основу вебресурсу покладено ресурсозберігаючу модель BASIC Ph — своєрідний «міст над прірвою», який допомагає з’єднати внутрішнє «Я» людини із зовнішнім світом та вийти з кризової ситуації. Кожна людина має 6 каналів подолання стресу, де одні канали є провідними, а інші потребують активації.</p>
+          <p class="home-how__lead">На сторінках цього ресурсу ви знайдете:</p>
+        </header>
+
+        <ul class="feat">
+          <li class="feat__card">
+            <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="4.5" width="14" height="16" rx="2.5"/><path d="M9 4.5h6v2.5H9z"/><path d="m8.8 13 2.2 2.2 4.2-4.4"/></svg></span>
+            <h3>Діагностика</h3>
+            <p>можливість визначити власні провідні та приховані канали стресодолання.</p>
+            <a class="pill" href="basic-ph.html#test">Перейти</a>
+          </li>
+          <li class="feat__card">
+            <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m14.5 6.5 3 3M4 20l1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z"/><path d="M5 19.5 8.5 18"/></svg></span>
+            <h3>Практичний інструментарій</h3>
+            <p>структуровані за шістьма напрямами вправи, техніки саморегуляції, рекомендації та корисні діджитал-додатки (трекери звичок, планери, плейлисти, віртуальні екскурсії тощо).</p>
+            <a class="pill" href="basic-ph.html#practices">Дослідити</a>
+          </li>
+          <li class="feat__card">
+            <span class="feat__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 19.5s-6.5-4-6.5-9.2A3.7 3.7 0 0 1 12 8a3.7 3.7 0 0 1 6.5 2.3c0 5.2-6.5 9.2-6.5 9.2z"/><path d="M12 11.5v3M10.5 13h3"/></svg></span>
+            <h3>Готові рішення</h3>
+            <p>добірку дієвих порад, які допоможуть вчасно підтримати себе, колегу чи студента у складну хвилину.</p>
+            <span class="pill pill--soon" role="link" aria-disabled="true" title="Розділ з’явиться згодом">Переглянути</span>
+          </li>
+        </ul>
+
+        <div class="cta">
+          <p>Обирайте свій канал ресурсу, досліджуйте власні сильні сторони та пам’ятайте: підтримка завжди поруч!</p>
+          <a class="btn" href="basic-ph.html">Розпочати</a>
+        </div>
+      </section>
+
+    </div>
   </main>
 </body>
 </html>

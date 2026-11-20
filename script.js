@@ -713,6 +713,15 @@
     });
     initBlocks();
     initAbout();
+    if (pageKey === 'home') {
+      const apps = $$('.appear');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(es => es.forEach(en => {
+          if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+        }), { threshold: .12 });
+        apps.forEach(el => io.observe(el));
+      } else apps.forEach(el => el.classList.add('in'));
+    }
     if (pageKey === 'basic') { initStressTest(); initWheel(); }
 
     // Поява елементів
