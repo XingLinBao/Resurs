@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
 /* ==========================================================
    Ресурс поруч — спільні стилі (шапка, банери, анімації)
    ========================================================== */
@@ -18,7 +20,7 @@
   --blob-2: var(--sage);
   --blob-3: var(--sand);
 
-  --ff-serif: 'Manrope', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --ff-serif: 'Lora', 'Source Serif 4', Georgia, 'Times New Roman', serif;
   --ff-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --ease: cubic-bezier(.22, .8, .24, 1);
@@ -914,11 +916,11 @@ body.modal-open { overflow: hidden; }
 .home { max-width: 1120px; margin: 0 auto; padding: 24px 20px 80px; display: grid; gap: clamp(40px, 7vw, 76px); }
 .home__sec { display: grid; gap: clamp(28px, 5vw, 48px); }
 .home h2 { margin: 0 0 16px; font-weight: 800; font-size: clamp(24px, 3.6vw, 34px); line-height: 1.2; letter-spacing: -.02em; color: var(--ink); text-wrap: balance; }
-.home h2.h2--warm { color: #8a5a3b; }
 .home p { margin: 0; }
 .home-text p { max-width: 62ch; font-size: clamp(15px, 1.6vw, 16.5px); line-height: 1.75; color: var(--ink-soft); }
 .home-text p + p { margin-top: 16px; }
 
+.home-intro.card { padding: clamp(22px, 4.5vw, 52px); }
 .home-intro, .home-row { display: grid; gap: 24px 48px; align-items: center; }
 .home-art { margin: 0; }
 .home-art img { width: 100%; height: auto; }
@@ -939,26 +941,26 @@ body.modal-open { overflow: hidden; }
 @media (min-width: 720px) { .feat { grid-template-columns: repeat(3, 1fr); align-items: stretch; } }
 .feat__card {
   display: flex; flex-direction: column; align-items: flex-start;
-  padding: 24px 22px 22px;
-  border-radius: 24px;
-  background: linear-gradient(160deg, #fffdf8 0%, #f8f3e9 100%);
-  border: 1px solid rgba(49, 91, 91, .09);
-  box-shadow: 0 14px 34px rgba(49, 91, 91, .09);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  padding: 26px 24px 22px;
+  border-radius: 26px;
+  background: #fffdf8;
+  border: 1px solid rgba(49, 91, 91, .1);
+  box-shadow: 0 14px 34px rgba(49, 91, 91, .07);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
 }
-.feat__card:hover { transform: translateY(-4px); box-shadow: 0 22px 42px rgba(49, 91, 91, .14); }
+.feat__card:hover { transform: translateY(-5px); box-shadow: 0 22px 44px rgba(49, 91, 91, .13); }
 .feat__icon {
-  display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 14px;
-  border-radius: 15px;
-  background: linear-gradient(145deg, #F0DFC6, #D8BD9C);
-  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .65), inset 0 -3px 7px rgba(120, 86, 50, .16);
+  display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 18px;
+  border-radius: 14px;
+  background: repeating-linear-gradient(98deg, rgba(150, 105, 60, .05) 0 3px, transparent 3px 9px), linear-gradient(145deg, #F0DFC6, #D8BD9C);
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, .65), inset 0 -4px 8px rgba(120, 86, 50, .18), 0 6px 12px rgba(80, 60, 40, .14);
 }
-.feat__icon svg { width: 28px; height: 28px; fill: none; stroke: #5b4838; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.feat__icon svg { width: 54%; height: 54%; fill: none; stroke: #5b4838; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; opacity: .88; }
 .feat__card h3 { margin: 0 0 8px; font-size: 19px; line-height: 1.25; font-weight: 800; color: var(--ink); }
 .feat__card p { margin: 0 0 20px; font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); flex: 1; }
 .pill {
   align-self: center; margin-top: auto; padding: 8px 22px;
-  border-radius: 999px; border: 0; background: #E7E9E1; color: var(--ink);
+  border-radius: 999px; border: 1px solid rgba(49, 91, 91, .18); background: #eceee9; color: var(--ink);
   font: inherit; font-size: 13.5px; font-weight: 700; text-decoration: none; cursor: pointer;
   transition: background .25s ease, color .25s ease, transform .3s var(--ease);
 }
@@ -966,11 +968,82 @@ a.pill:hover { background: var(--teal); color: var(--milk); transform: translate
 .pill--soon { cursor: default; opacity: .72; }
 
 .cta {
-  display: grid; justify-items: center; gap: 18px; text-align: center;
-  padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 48px);
+  display: grid; justify-items: center; gap: 20px; text-align: center;
+  padding: clamp(26px, 5vw, 48px) clamp(20px, 4vw, 48px);
   border-radius: 28px;
-  background: linear-gradient(145deg, #EADCC8 0%, #E3D4BE 100%);
-  border: 1px solid rgba(138, 106, 82, .12);
+  background: linear-gradient(145deg, #eceee9 0%, #f4f4ec 100%);
+  border: 1px solid rgba(49, 91, 91, .09);
+  box-shadow: 0 18px 44px rgba(49, 91, 91, .08);
 }
 .cta p { max-width: 52ch; font-size: clamp(16px, 2vw, 19px); line-height: 1.5; font-weight: 600; color: var(--ink); }
-.cta .btn { cursor: pointer; }
+.cta .btn { background: var(--terra); color: #fff; cursor: pointer; box-shadow: 0 10px 22px rgba(193, 125, 91, .28); }
+.cta .btn:hover { background: #b87656; }
+
+
+/* ==========================================================
+   Шапка: ПК — лише горизонтальна навігація, телефон — лише бокове меню
+   ========================================================== */
+@media (max-width: 899.98px) {
+  .mainnav { display: none; }
+  .topbar__inner { flex-wrap: nowrap; }
+}
+@media (min-width: 900px) {
+  .icon-btn[data-action="menu"] { display: none; }
+  .drawer { display: none; }
+}
+
+/* ==========================================================
+   Шрифти: заголовки — Lora, основний текст — Manrope
+   ========================================================== */
+main h1:not(#_), main h2:not(#_), main h3:not(#_) {
+  font-family: var(--ff-serif);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+main h1:not(#_) { line-height: 1.12; }
+main h2:not(#_) { line-height: 1.22; }
+.brand__text strong { font-weight: 700; letter-spacing: 0; }
+.hero__lead { font-weight: 500; }
+.hero__tagline em { font-family: var(--ff-serif); }
+
+/* ==========================================================
+   Футер
+   ========================================================== */
+.footer {
+  margin-top: 40px;
+  background: #1f3d3d;
+  color: #dfe7e2;
+}
+.footer__inner {
+  max-width: 1120px; margin: 0 auto;
+  padding: clamp(36px, 6vw, 60px) 20px 28px;
+  display: grid; gap: 32px 48px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) { .footer__inner { grid-template-columns: 1.3fr 1fr 1fr; } }
+.footer__brand { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.footer__logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: #fff; }
+.footer__logo svg { width: 40px; height: 40px; stroke: #E8B79B; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.footer__logo strong { font-family: var(--ff-serif); font-weight: 700; font-size: 21px; }
+.footer__about { margin: 0; max-width: 36ch; font-size: 14px; line-height: 1.65; color: #b9c8c2; }
+.footer__college {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  font-size: 13.5px; font-weight: 700; color: #fff; text-decoration: none;
+  transition: background .25s ease, color .25s ease, transform .3s var(--ease);
+}
+.footer__college:hover { background: #fff; color: #1f3d3d; transform: translateY(-2px); }
+.footer__college svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.footer h2 { margin: 0 0 14px; font-family: var(--ff-serif); font-size: 17px; font-weight: 700; color: #fff; }
+.footer nav { display: grid; gap: 4px; }
+.footer nav a { width: fit-content; padding: 4px 0; font-size: 14.5px; font-weight: 500; color: #cfdbd5; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: color .2s ease, background-size .35s var(--ease); }
+.footer nav a:hover, .footer nav a.is-active { color: #fff; background-size: 100% 1px; }
+.footer__bottom {
+  max-width: 1120px; margin: 0 auto; padding: 18px 20px 26px;
+  border-top: 1px solid rgba(255, 255, 255, .12);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px;
+  font-size: 12.5px; color: #93a8a1;
+}
+.footer__bottom a { color: #cfdbd5; }
+.footer :focus-visible { outline-color: #E8B79B; }

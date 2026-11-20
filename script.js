@@ -700,8 +700,45 @@
 
   /* ---------- Старт ---------- */
 
+  /* ---------- Футер (на кожній сторінці) ---------- */
+  const COLLEGE_URL = 'https://tefc.in.ua/index.php/uk/';
+  function buildFooter() {
+    if ($('.footer')) return;
+    const isActive = k => k === pageKey;
+    const link = p => `<a href="${p.href}" class="${isActive(p.key) ? 'is-active' : ''}">${p.title}</a>`;
+    const f = document.createElement('footer');
+    f.className = 'footer';
+    f.innerHTML = `
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <a class="footer__logo" href="index.html" aria-label="Ресурс поруч — на головну">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 41C10 32 5 22 9 14.5c3-5.5 10.5-5.5 15 .5 4.5-6 12-6 15-.5C43 22 38 32 24 41z"/><path d="M24 35V23"/><path d="M24 29c-4.5-.5-6.5-3.5-6.5-7 4.5 0 6.5 3 6.5 7zM24 26c3.5-.5 5.5-2.8 5.5-6-3.5 0-5.5 2.4-5.5 6z"/></svg>
+            <strong>Ресурс поруч</strong>
+          </a>
+          <p class="footer__about">Кейс психологічної підтримки викладача і студента. Піклуймось про ментальне здоров’я разом!</p>
+          <a class="footer__college" href="${COLLEGE_URL}" target="_blank" rel="noopener">Сайт коледжу
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <nav aria-label="Навігація в футері">
+          <h2>Сайт</h2>
+          ${PAGES.filter(p => ['home', 'basic', 'publications', 'contacts'].includes(p.key)).map(link).join('')}
+        </nav>
+        <nav aria-label="Шість сфер BASIC Ph">
+          <h2>Шість сфер BASIC Ph</h2>
+          ${PAGES.filter(p => p.group === 'basic').map(link).join('')}
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>© ${new Date().getFullYear()} Ресурс поруч</span>
+        <span>ВСП «Технолого-економічний фаховий коледж Білоцерківського НАУ» · <a href="${COLLEGE_URL}" target="_blank" rel="noopener">tefc.in.ua</a></span>
+      </div>`;
+    document.body.append(f);
+  }
+
   function init() {
     buildHeader();
+    buildFooter();
     initTransitions();
     initRipple();
 
