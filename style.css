@@ -1058,3 +1058,8 @@ main h3:not(#_) { font-size-adjust: .5; }
 
 /* Ключові слова в заголовках */
 .hl { color: var(--accent); }
+
+/* Кубики на сторінці «Про модель»: трохи вище й лівіше */
+.blocks { margin-bottom: 28px; }
+@media (min-width: 820px) { .blocks { margin-bottom: 40px; } }
+@media (min-width: 1100px) { .blocks { margin-right: 64px; } }
