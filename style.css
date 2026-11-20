@@ -1063,3 +1063,8 @@ main h3:not(#_) { font-size-adjust: .5; }
 .blocks { margin-bottom: 28px; }
 @media (min-width: 820px) { .blocks { margin-bottom: 40px; } }
 @media (min-width: 1100px) { .blocks { margin-right: 64px; } }
+
+/* «Про модель BASIC Ph»: заголовок в один рядок на ПК */
+@media (min-width: 820px) {
+  body[data-page="basic"] .hero h1 { white-space: nowrap; font-size: clamp(28px, 4.3vw, 56px); }
+}
