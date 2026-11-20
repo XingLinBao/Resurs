@@ -1062,7 +1062,7 @@ main h3:not(#_) { font-size-adjust: .5; }
 /* Кубики на сторінці «Про модель»: трохи вище й лівіше */
 .blocks { margin-bottom: 28px; }
 @media (min-width: 820px) { .blocks { margin-bottom: 40px; } }
-@media (min-width: 1100px) { .blocks { right: 140px; margin-right: 0; } }
+@media (min-width: 1100px) { .blocks { margin-right: 140px; } }
 
 /* «Про модель BASIC Ph»: розмір заголовка як на головній */
 body[data-page="basic"] .hero h1 { font-size: clamp(34px, 9vw, 72px); text-wrap: balance; }
