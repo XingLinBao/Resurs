@@ -809,6 +809,21 @@
     });
   }
 
+
+  /* ---------- Друга лінія заголовка сфери («Тіло», «Віра і цінності»…) — акцентним кольором ---------- */
+  function highlightSecondLine() {
+    if (!group) return;
+    $$('.hero h1').forEach(h => {
+      const br = $('br', h);
+      if (!br) return;
+      let n = br.nextSibling;
+      while (n) {
+        if (n.nodeType === 1 && n.classList.contains('w')) n.classList.add('hl');
+        n = n.nextSibling;
+      }
+    });
+  }
+
   function init() {
     buildHeader();
     buildFooter();
@@ -817,6 +832,7 @@
 
     $$('.hero h1').forEach(splitWords);
     highlightHeadings();
+    highlightSecondLine();
     $$('.hero').forEach(hero => {
       decorate(hero);
       initPhoto(hero);
