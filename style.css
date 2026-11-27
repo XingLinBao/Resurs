@@ -1142,9 +1142,11 @@ body[data-page="basic"] .hero h1 { font-size: clamp(34px, 9vw, 72px); text-wrap:
 /* вертикальні відео (Shorts, Reels) — вужча колонка; горизонтальні — ширша */
 @media (min-width: 700px) {
   .tech--v { grid-template-columns: minmax(0, 1fr) 220px; gap: 28px; align-items: start; }
-  .tech--short { align-items: stretch; }
-  .tech--short .tech__text { display: flex; align-items: center; padding: 28px 30px; border-radius: 18px; background: rgba(224, 229, 222, .45); }
-  .tech--short .tech__text p { font-size: 1.08rem; }
+  .tech--v { align-items: stretch; }
+  .tech--v .tech__text { display: flex; flex-direction: column; justify-content: center; padding: 28px 30px; border-radius: 18px; background: rgba(224, 229, 222, .45); }
+  .tech--v .tech__text > p:not(.note) { font-size: 1.05rem; }
+  .tech--v .steps__n { background: #fffdf8; }
+  .tech--v .tech__text h4:first-child { margin-top: 0; }
 }
 @media (min-width: 1000px) {
   .tech--h { grid-template-columns: minmax(0, 1fr) minmax(0, 460px); gap: 32px; align-items: center; }
@@ -1174,3 +1176,16 @@ body[data-page="basic"] .hero h1 { font-size: clamp(34px, 9vw, 72px); text-wrap:
 
 /* Відступ від банера до вмісту — на всіх сторінках */
 .hero { margin-bottom: clamp(28px, 4.5vw, 56px); }
+
+@media (max-width: 699.98px) { .tech--v .tech__text { padding: 20px 22px; border-radius: 18px; background: rgba(224, 229, 222, .45); } }
+
+/* Інфографіка в техніці «5–4–3–2–1» */
+.infographic { margin: 8px 0 0; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); background: #fff; }
+.infographic img { width: 100%; height: auto; display: block; }
+.tech--v .steps__n { background: #fffdf8; }
+
+/* Кілька вертикальних відео в одній колонці */
+.tech__media--stack { display: grid; gap: 20px; align-content: start; }
+.tech__media--stack .vid { margin: 0 auto; }
+.tech--v .tech__text .pills li { background: #fffdf8; }
+@media (min-width: 700px) { .tech__media--stack { align-self: start; position: sticky; top: 96px; } }
