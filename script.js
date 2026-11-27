@@ -9,7 +9,7 @@
   const PAGES = [
     { key: 'home',          href: 'index.html',          title: 'Головна',                         kw: 'ресурс поруч підтримка викладач студент' },
     { key: 'basic',         href: 'basic-ph.html',       title: 'Про модель BASIC Ph',             kw: 'модель lahad leykin шість сфер ментальне здоров’я' },
-    { key: 'physical',      href: 'physical.html',       title: 'Physical — Тіло',                 kw: 'тіло сон харчування рух спорт', group: 'basic', icon: 'dumbbell', short: 'Тіло' },
+    { key: 'physical',      href: 'physical.html',       title: 'Physiology — Тіло',                 kw: 'тіло сон харчування рух спорт', group: 'basic', icon: 'dumbbell', short: 'Тіло' },
     { key: 'belief',        href: 'belief-values.html',  title: 'Belief & Values — Віра і цінності', kw: 'віра цінності духовність місія', group: 'basic', icon: 'lotus', short: 'Віра і цінності' },
     { key: 'affect',        href: 'affect.html',         title: 'Affect — Емоції та почуття',      kw: 'емоції почуття баланс', group: 'basic', icon: 'heart', short: 'Емоції та почуття' },
     { key: 'socialization', href: 'socialization.html',  title: 'Socialization — Соціальні зв’язки', kw: 'соціальні зв’язки підтримка друзі', group: 'basic', icon: 'people', short: 'Соціальні зв’язки' },
@@ -698,6 +698,42 @@
     summary();
   }
 
+
+  /* ---------- Physiology: напрями практик, відео ---------- */
+  function initCase() {
+    const tabs = $$('.side__item');
+    if (!tabs.length) return;
+    const loadVideos = root => $$('iframe[data-src]', root).forEach(f => { f.src = f.dataset.src; f.removeAttribute('data-src'); });
+    const activate = (tab, focus) => {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.classList.toggle('is-active', on);
+        t.setAttribute('aria-selected', on);
+        t.tabIndex = on ? 0 : -1;
+        const p = document.getElementById(t.dataset.target);
+        if (p) { p.hidden = !on; p.classList.toggle('is-active', on); }
+      });
+      if (focus) tab.focus();
+      const panel = document.getElementById(tab.dataset.target);
+      // Відео вантажимо лише в розкритих блоках
+      $$('details[open]', panel).forEach(loadVideos);
+      if (location.hash !== '#' + tab.dataset.target) history.replaceState(null, '', '#' + tab.dataset.target);
+    };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => activate(t));
+      t.addEventListener('keydown', e => {
+        const k = e.key;
+        if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(k)) return;
+        e.preventDefault();
+        const d = (k === 'ArrowDown' || k === 'ArrowRight') ? 1 : -1;
+        activate(tabs[(i + d + tabs.length) % tabs.length], true);
+      });
+    });
+    $$('.acc2').forEach(d => d.addEventListener('toggle', () => { if (d.open) loadVideos(d); }));
+    const fromHash = tabs.find(t => '#' + t.dataset.target === location.hash);
+    activate(fromHash || tabs[0]);
+  }
+
   /* ---------- Старт ---------- */
 
   /* ---------- Футер (на кожній сторінці) ---------- */
@@ -788,6 +824,7 @@
     });
     initBlocks();
     initAbout();
+    initCase();
     if (pageKey === 'home') {
       const apps = $$('.appear');
       if ('IntersectionObserver' in window) {
