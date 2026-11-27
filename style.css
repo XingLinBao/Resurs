@@ -1076,7 +1076,7 @@ body[data-page="basic"] .hero h1 { font-size: clamp(34px, 9vw, 72px); text-wrap:
    ========================================================== */
 .case { position: relative; padding: 8px 20px 80px; }
 .case__inner { max-width: 1240px; margin: 0 auto; }
-.case__head { max-width: 920px; margin-bottom: 28px; }
+.case__head { max-width: none; margin-bottom: 28px; }
 .eyebrow { margin: 0 0 8px; font-size: .78rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
 .eyebrow span { margin: 0 4px; }
 .case__head h2 { margin: 0 0 14px; font-size: clamp(1.9rem, 5vw, 3rem); font-weight: 800; color: var(--ink); }
